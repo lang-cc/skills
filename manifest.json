@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "skills": [
+    "agent-desktop",
+    "agent-desktop-windows",
+    "caveman",
+    "code-review-and-quality",
+    "debugging-and-error-recovery",
+    "domain-modeling",
+    "find-skills",
+    "frontend-design",
+    "gh-fix-ci",
+    "grill-with-docs",
+    "grilling",
+    "handoff",
+    "improve-codebase-architecture",
+    "incremental-implementation",
+    "planning-and-task-breakdown",
+    "playwright",
+    "ponytail",
+    "project-gate",
+    "security-best-practices",
+    "session-cleanup",
+    "spec-driven-development",
+    "test-driven-development",
+    "using-agent-skills",
+    "web-design-guidelines",
+    "writing-for-agents"
+  ]
+}

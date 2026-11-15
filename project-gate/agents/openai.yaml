@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Gate"
+  short_description: "Inspect and approve project work before implementation"
+  default_prompt: "Use $project-gate to inspect this project, identify risks, and plan the work before implementation."
