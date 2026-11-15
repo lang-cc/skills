@@ -1,6 +1,6 @@
 # Codex Skills
 
-Private backup repository for 25 installed Codex skills.
+Private backup repository for 24 installed Codex skills.
 
 The repository root is also the active global skill directory:
 
@@ -19,7 +19,7 @@ removing, or updating a skill changes this Git working tree immediately.
 .\backup-skills.ps1 -Push
 ```
 
-`-Push` implies `-Commit`. The script validates the 25-skill manifest, refreshes
+`-Push` implies `-Commit`. The script validates the generated skill manifest, refreshes
 the support files, commits changes, and pushes to `origin`.
 
 ## Support Files

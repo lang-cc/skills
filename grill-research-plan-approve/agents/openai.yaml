@@ -1,0 +1,7 @@
+interface:
+  display_name: "先调研后规划"
+  short_description: "先问清需求并寻找类似项目与可用技能，给出简短计划，经你批准后再开始实施"
+  default_prompt: "Use $grill-research-plan-approve to clarify this request, find similar projects and useful skills, then present a short plan before implementation."
+
+policy:
+  allow_implicit_invocation: true
