@@ -12,30 +12,20 @@ $sourceLock = Join-Path $agentsRoot '.skill-lock.json'
 $repoReferences = Join-Path $repoRoot 'references'
 $repoLock = Join-Path $repoRoot 'skill-lock.json'
 
-$manifest = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
-$expectedNames = @($manifest.skills)
-
-if ($expectedNames.Count -ne 25) {
-    throw "manifest.json must contain exactly 25 skills; found $($expectedNames.Count)"
-}
-if (@($expectedNames | Select-Object -Unique).Count -ne $expectedNames.Count) {
-    throw 'manifest.json contains duplicate skill names'
-}
-
-$missing = $expectedNames | Where-Object {
-    -not (Test-Path -LiteralPath (Join-Path (Join-Path $repoRoot $_) 'SKILL.md') -PathType Leaf)
-}
-if ($missing) {
-    throw "Missing installed skills: $($missing -join ', ')"
-}
-
-$actualNames = Get-ChildItem -LiteralPath $repoRoot -Directory |
+$actualNames = @(Get-ChildItem -LiteralPath $repoRoot -Directory |
     Where-Object { Test-Path -LiteralPath (Join-Path $_.FullName 'SKILL.md') -PathType Leaf } |
-    Select-Object -ExpandProperty Name
-$unexpected = @($actualNames | Where-Object { $_ -notin $expectedNames })
-if ($unexpected) {
-    throw "Unexpected skills found: $($unexpected -join ', '). Update or restore manifest.json first."
+    Select-Object -ExpandProperty Name |
+    Sort-Object)
+
+if ($actualNames.Count -eq 0) {
+    throw "No installed skills found in $repoRoot"
 }
+
+$manifest = [ordered]@{
+    version = 1
+    skills  = $actualNames
+}
+$manifest | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath $manifestPath -Encoding utf8
 
 if (Test-Path -LiteralPath $sourceReferences -PathType Container) {
     New-Item -ItemType Directory -Path $repoReferences -Force | Out-Null
@@ -49,7 +39,7 @@ if (Test-Path -LiteralPath $sourceLock -PathType Leaf) {
     Copy-Item -LiteralPath $sourceLock -Destination $repoLock -Force
 }
 
-Write-Host "Validated $($expectedNames.Count) skills in $repoRoot"
+Write-Host "Backed up $($actualNames.Count) skills from $repoRoot"
 
 if ($Push) {
     $Commit = $true

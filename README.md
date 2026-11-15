@@ -24,10 +24,10 @@ the support files, commits changes, and pushes to `origin`.
 
 ## Support Files
 
-- `manifest.json` - exact skill allowlist
+- `manifest.json` - generated inventory of installed skills
 - `references/` - shared checklists used by several installed skills
 - `skill-lock.json` - source metadata copied from `%USERPROFILE%\.agents`
 - `backup-skills.ps1` - validation, commit, and push helper
 
-Only skills listed in `manifest.json` are allowed. If a new skill is installed,
-update the manifest before backing up so the repository cannot silently drift.
+`manifest.json` is regenerated on every backup. New, removed, or modified skill
+directories are therefore reflected without a second manual synchronization.
